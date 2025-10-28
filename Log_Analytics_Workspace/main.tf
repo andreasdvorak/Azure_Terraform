@@ -1,10 +1,10 @@
 resource "azurerm_resource_group" "main" {
   location = var.location
-  name     = "rg-${var.application}-${var.env}"
+  name     = "rg-${var.application_name}-${var.environment_name}"
 }
 
-resource "azurem_log_analytics_workspace" "main" {
-  name                = "log-${var.application}-${var.env}"
+resource "azurerm_log_analytics_workspace" "main" {
+  name                = "log-${var.application_name}-${var.environment_name}"
   location            = var.location
   resource_group_name = azurerm_resource_group.main.name
   sku                 = "PerGB2018"

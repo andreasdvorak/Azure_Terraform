@@ -1,6 +1,21 @@
-variable "application" {
+variable "application_name" {
   default     = "test"
   description = "Application name"
+  type = string
+}
+
+variable "backend_resource_group" {
+  description = "backend resource group"
+  type = string
+}
+
+variable "backend_storage_account" {
+  description = "backend storage account"
+  type = string
+}
+
+variable "backend_storage_container" {
+  description = "backend storage container"
   type = string
 }
 
@@ -14,19 +29,13 @@ variable "client_secret" {
     type = string
 }
 
-# The name of the container of the storage account
-variable "container_name" {
-    description = "The name of the container of the storage account"
-    type        = string
-}
-
-variable "env" {
+variable "environment_name" {
   description = "Environment of vms (dev, test, prod)"
   type        = string
 
   validation {
-    condition     = contains(local.allowed_environments, var.env)
-    error_message = "The variable 'env' muss be 'dev', 'test' or 'prod'."
+    condition     = contains(local.allowed_environments, var.environment_name)
+    error_message = "The variable 'environment_name' muss be 'dev', 'test' or 'prod'."
   }
 }
 
@@ -50,4 +59,3 @@ variable "tenant_id" {
     description = "tenant id for azure"
     type = string
 }
-

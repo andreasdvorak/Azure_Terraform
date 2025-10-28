@@ -3,6 +3,8 @@ This code create a Azure Log Analytics Workspace.
 
 Use Azure as backend for state file
 
+You can put this in the provider.tf file
+
 ```
 backend "azurerm" {
   resource_group_name  = "<resource_group_name>"
@@ -12,9 +14,23 @@ backend "azurerm" {
 }
 ```
 
-or the shell script.
+or the shell script and put the values in the <env>.tfvars file
 
-<env>.sh
+  run.sh <env> <action>
+
+Example: dev.tfvars
+
+```
+application_name=observability
+
+backend_resource_group=
+backend_storage_account=
+backend_storage_container=
+
+environment_name=dev
+
+subscription_id=
+```
 
 # Create Azure storage
 To store the Terraform state file you need three things

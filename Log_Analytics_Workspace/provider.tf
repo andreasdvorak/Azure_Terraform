@@ -6,13 +6,9 @@ terraform {
     }
   }
 
-#  backend "azurerm" {
-#    resource_group_name  = "rg-st-dev"
-#    storage_account_name = "stsexn6wcs4pdev"
-#    container_name       = "tfstate"
-#    key                  = "terraform.tfstate"
-#  }
-
+  # Defination that the terraform state file is in Azure
+  backend "azurerm" {
+  }
 }
 
 provider "azurerm" {
