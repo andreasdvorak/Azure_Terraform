@@ -31,14 +31,14 @@ fi
 export ARM_SUBSCRIPTION_ID=$(grep "subscription_id" env/${env}.tfvars | cut -d "=" -f2 | tr -d '"' | tr -d ' ')
 
 # set the application and environment
-export TF_VAR_application_name=$(grep "application_name" env/${env}.tfvars | cut -d "=" -f2 | tr -d '"' | tr -d ' ')
+export TF_VAR_tf_file_name=$(grep "tf_file_name" env/${env}.tfvars | cut -d "=" -f2 | tr -d '"' | tr -d ' ')
 export TF_VAR_environment_name=${env}
 
 # set the backend
 export BACKEND_RESOURCE_GROUP=$(grep "backend_resource_group" env/${env}.tfvars | cut -d "=" -f2 | tr -d '"' | tr -d ' ')
 export BACKEND_STORAGE_ACCOUNT=$(grep "backend_storage_account" env/${env}.tfvars | cut -d "=" -f2 | tr -d '"' | tr -d ' ')
 export BACKEND_STORAGE_CONTAINER=$(grep "backend_storage_container" env/${env}.tfvars | cut -d "=" -f2 | tr -d '"' | tr -d ' ')
-export BACKEND_KEY=${TF_VAR_application_name}-${TF_VAR_environment_name}.tfstate
+export BACKEND_KEY=${TF_VAR_tf_file_name}-${TF_VAR_environment_name}.tfstate
 
 terraform init \
     -backend-config="resource_group_name=${BACKEND_RESOURCE_GROUP}" \
@@ -48,9 +48,9 @@ terraform init \
 
 action=$2
 
-if [ ${action} == "" ]
+if [ "${action}" == "" ]
 then
-    echo "no action set"
+    echo "No action set"
     exit 1
 else
     if printf '%s\n' "${actions[@]}" | grep -q "^${action}$"; then
@@ -61,6 +61,6 @@ else
     fi
 fi
 
-terraform $action -var-file="./env/${env}.tfvars"
+terraform $action -var-file="./env/${env}.tfvars" -var-file="../secrets.tfvars"
 
 rm -rf .terraform

@@ -42,3 +42,6 @@ override.tf.json
 terraform.rc
 
 **/.ssh/*
+
+# VSCode settings
+*.code-workspace

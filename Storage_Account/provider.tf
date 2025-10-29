@@ -14,4 +14,3 @@ provider "azurerm" {
   client_secret   = var.client_secret
   features {}
 }
-

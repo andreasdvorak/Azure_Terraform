@@ -16,7 +16,8 @@ To store the Terraform state file you need three things
 You can run this script
     ./azure_storage.sh
 
-or use Terraform to create the storage account.
+or use Terraform with a local state file to create the storage account.
+
+    terraform [plan|apply|destroy] -var-file="./env/dev.tfvars" -var-file=../secrets.tfvars
 
 Use the outputs to for other Terraform project to use the Azure backend for the Terraform state file.
-

@@ -43,6 +43,15 @@ Create a Service Principal e.g. terraform in https://entra.microsoft.com
 
 In the Azure portal the SP can be seen in Microsoft Entra ID -> App registrations
 
+## Add permissions to principal
+To give the terraform service principal the permission to create role assignments, we need to configure that first.
+
+    az role assignment create \
+    --assignee "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" \  # → Client ID
+    --role "User Access Administrator" \
+    --scope "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"  # Subscription ID
+
+
 ## tfvars
 In the directory env put your environment specific tfvars files.
 
@@ -53,7 +62,8 @@ Check .gitignore
 * dev.tfvars
 * prod.tfvars
 
-Example
+In the main directory, I recommend a file secrets.tfvars like this with the Azure credentials.
+
 This file should not be put in git, because it contains secrets.
 ```
 client_id       = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
@@ -89,18 +99,18 @@ With workspace you can switch between different tfvars and the corresponding tfs
     terraform validate
 
 ## Create a Terraform execution plan
-    terraform plan -var-file="./env/dev.tfvars"
+    terraform plan -var-file="./env/dev.tfvars" -var-file=../secrets.tfvars
 
 ## Execute Terraform
-    terraform apply -var-file="./env/dev.tfvars"
+    terraform apply -var-file="./env/dev.tfvars" -var-file=../secrets.tfvars
 
 ## delete all remote objets
-    terraform destroy -var-file="./env/dev.tfvars"
+    terraform destroy -var-file="./env/dev.tfvars" -var-file=../secrets.tfvars
 
 ## Terrform console
 With the Terraform console you can get information about variables or resources.
 
-    terraform console -var-file="./env/dev.tfvars"
+    terraform console -var-file="./env/dev.tfvars" -var-file=../secrets.tfvars
     azurerm_resource_group.main
     random_uuid.appvaultkey
 
