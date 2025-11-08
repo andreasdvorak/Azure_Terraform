@@ -175,3 +175,8 @@ With the Terraform console you can get information about variables or resources.
 ## Environment variables for debugging
     $env:TF_LOG="DEBUG"
     $env:TF_LOG_PATH="terraform.log"
+
+# Verify code
+Please check you code with the following command to have a nice and valid format in the files
+
+    terraform fmt -recursive
