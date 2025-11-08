@@ -1,5 +1,5 @@
 # Terraform code for Azure
-Here you can find several projects to create Azure resources.
+Here you can find several projects to configure Azure with Terraform.
 
 # Terraform installation
 https://developer.hashicorp.com/terraform/install#linux
@@ -25,25 +25,83 @@ To run the terraform apply you first need to login at Azure
 
     az account show
 
-# Code
-## client access values
+# Service Principals
+I am using a service principal with high permissions for the administration of Identity Management and a second principal with lower permissions for resource managemant. The terraform-sp-id is create by the Azure Cli and the terraform-sp-rm by Terraform.
+
+## Service principal Identity Management
+This configuration needs to be done with Global Administrator.
+
+https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/group
+
 To access Azure with Terraform you need a client_id and client_secret
 
-Create a Service Principal e.g. terraform in https://entra.microsoft.com
+Create a Service Principal
 
-    az ad sp create-for-rbac --name "terraform-sp" --role="Contributor" --scopes="/subscriptions/<SUBSCRIPTION_ID>"
+    az ad sp create-for-rbac --name "terraform-sp-id"
 
-
-    {
+        {
     "appId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",         # → Client ID
-    "displayName": "terraform-sp",
+    "displayName": "terraform-sp-id",
     "password": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",       # → Client Secret
     "tenant": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"          # → Tenant ID
     }
 
+    APP_ID="<appId>"
+
 In the Azure portal the SP can be seen in Microsoft Entra ID -> App registrations
 
-## Add permissions to principal
+Get Permission IDs
+
+    az ad sp show --id 00000003-0000-0000-c000-000000000000 --query "oauth2PermissionScopes"
+
+Get Role IDs
+
+    az ad sp show --id 00000003-0000-0000-c000-000000000000 --query "appRoles"
+
+00000003-0000-0000-c000-000000000000 = Microsoft Graph
+
+Add permissions to SP
+* User.ReadWrite.All (741f803b-c850-494e-b5df-cde7c675a1ca)
+* Group.Create (bf7b1a76-6e77-406b-b258-bf5c7720e98f)
+* Group.ReadWrite.All (62a82d76-70ea-41e2-9197-370581804d09)
+
+    az ad app permission add \
+    --id $APP_ID \
+    --api 00000003-0000-0000-c000-000000000000 \
+    --api-permissions bf7b1a76-6e77-406b-b258-bf5c7720e98f=Role 62a82d76-70ea-41e2-9197-370581804d09=Role df021288-bdef-4463-88db-98f22de89214=Role
+
+Add Admin-Consent, this means an administrator gives permission for the API of an App.
+
+    az ad app permission grant --id $APP_ID --api 00000003-0000-0000-c000-000000000000 --scope "Group.ReadWrite.All"
+
+# Application.ReadWrite.All
+    az ad app permission add --id $APP_ID --api 00000003-0000-0000-c000-000000000000 --api-permissions 1bfefb4e-e0b5-418b-a88f-73c46d2cc8e9=Role
+    az ad app permission grant --id 1bfefb4e-e0b5-418b-a88f-73c46d2cc8e9 --api 00000003-0000-0000-c000-000000000000 --scope "Application.ReadWrite.All"
+
+# User.ReadWrite.All
+    az ad app permission add --id $APP_ID --api 00000003-0000-0000-c000-000000000000 --api-permissions 741f803b-c850-494e-b5df-cde7c675a1ca=Role
+    az ad app permission grant --id 2dd11762-e032-4b28-bd1a-18285c9aba56 --api 00000003-0000-0000-c000-000000000000 --scope "User.ReadWrite.All"
+
+Verify in Azure portal
+
+Azure AD → App-Registrierungen → Deine App → API-Berechtigungen → Admin-Consent
+
+Verify permission list
+
+    az ad app permission list --id $APP_ID
+
+## Add permissions to principal terraform-sp-rm
+To give the terraform service principal the permission to create role assignments, we need to configure that first.
+
+az ad sp create-for-rbac --name "terraform-sp-id" --role="Contributor" --scopes="/subscriptions/<SUBSCRIPTION_ID>"
+
+
+    az role assignment create \
+    --assignee "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" \  # → Client ID
+    --role "Privileged Role Administrator" \
+    --scope "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"  # Subscription ID
+
+## Add permissions to principal terraform-sp-rm
 To give the terraform service principal the permission to create role assignments, we need to configure that first.
 
     az role assignment create \
@@ -51,7 +109,7 @@ To give the terraform service principal the permission to create role assignment
     --role "User Access Administrator" \
     --scope "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"  # Subscription ID
 
-
+# Code
 ## tfvars
 In the directory env put your environment specific tfvars files.
 
