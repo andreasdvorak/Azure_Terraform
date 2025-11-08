@@ -23,6 +23,7 @@ resource "azurerm_key_vault" "main" {
   enable_rbac_authorization  = true
 }
 
+# Set Role Assignment for the service principal to Key Vault Administrator
 resource "azurerm_role_assignment" "terraform_user" {
   scope                = azurerm_key_vault.main.id
   role_definition_name = "Key Vault Administrator"

@@ -16,3 +16,23 @@ module "KeyVault" {
 
   depends_on          = [module.Log_Analytics_Workspace]
 }
+
+module "Network" {
+  source           = "../modules/Network"
+  environment_name = var.environment_name
+  application_name = var.network_application_name
+  virtual_network  = var.virtual_network
+
+  depends_on       = [module.KeyVault]
+}
+
+module "Linux_vm" {
+  source           = "../modules/Linux_vm"
+  environment_name = var.environment_name
+  application_name = var.vm_application_name
+  admin_username   = var.admin_username
+  os_offer         = var.os_offer
+  os_sku           = var.os_sku
+  
+  depends_on       = [module.Network]
+}

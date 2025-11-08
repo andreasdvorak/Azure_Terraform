@@ -1,13 +1,11 @@
-variable "admin_username" {
-  default     = "test"
-  description = "Administrator user name"
-  type = string
+variable "allowed_regions" {
+  type        = list(string)
+  description = "List of allowed Azure regions"
 }
 
-variable "application_name" {
-  default     = "test"
-  description = "Application name"
-  type = string
+variable "allowed_vm_sizes" {
+  type        = list(string)
+  description = "List of allowed VM sizes"
 }
 
 variable "backend_resource_group" {
@@ -56,34 +54,6 @@ variable "location" {
   }
 }
 
-variable "keyvault_application_name" {
-  default     = "test"
-  description = "KeyVault application name"
-  type = string
-}
-
-variable "log_analytics_workspace_application_name" {
-  default     = "test"
-  description = "Log Analytics application name"
-  type = string
-}
-
-variable "network_application_name" {
-  default     = "test"
-  description = "Network application name"
-  type = string
-}
-
-variable "os_offer" {
-    description = "os to offer"
-    type = string
-}
-
-variable "os_sku" {
-    description = "os sku"
-    type = string
-}
-
 variable "subscription_id" {
     description = "subscription id for azure"
     type = string
@@ -95,25 +65,5 @@ variable "tenant_id" {
 }
 
 variable "tf_file_name" {
-  type = string
-}
-
-variable "virtual_network" {
-  description = "Konfiguration für das virtuelle Netzwerk"
-  type = object({
-    name           = string
-    address_space  = string
-    subnet_newbits = number
-  })
-
-  validation {
-    condition     = can(regex("^\\d+\\.\\d+\\.\\d+\\.\\d+/\\d+$", var.virtual_network.address_space))
-    error_message = "Die address_space muss im CIDR-Format sein, z. B. 10.0.0.0/16."
-  }
-}
-
-variable "vm_application_name" {
-  default     = "test"
-  description = "VM application name"
   type = string
 }

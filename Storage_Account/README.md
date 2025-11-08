@@ -14,7 +14,7 @@ To store the Terraform state file you need three things
 
 ## Create Azure Storage account
 You can run this script
-    ./azure_storage.sh
+    ./azure_storage.sh [dev|test|prod]
 
 or use Terraform with a local state file to create the storage account.
 
