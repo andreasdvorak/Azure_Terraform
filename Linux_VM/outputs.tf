@@ -1,5 +1,5 @@
 output "randomid_appvaultkey" {
-  value=substr(random_uuid.appvaultkey.result,0,8)
+  value = substr(random_uuid.appvaultkey.result, 0, 8)
 }
 
 output "public_ip_addresses" {

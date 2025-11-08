@@ -1,7 +1,7 @@
 variable "application_name" {
   default     = "test"
   description = "Log Analytics application name"
-  type = string
+  type        = string
 }
 
 variable "environment_name" {

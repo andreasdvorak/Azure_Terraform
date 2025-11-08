@@ -7,7 +7,7 @@ terraform {
       version = "~>2.0"
     }
     azurerm = {
-      source = "hashicorp/azurerm"
+      source  = "hashicorp/azurerm"
       version = "~>4.0.0"
     }
     random = {
@@ -23,8 +23,8 @@ terraform {
 
 provider "azurerm" {
   subscription_id = var.subscription_id
-  tenant_id = var.tenant_id
-  client_id = var.client_id
-  client_secret = var.client_secret
+  tenant_id       = var.tenant_id
+  client_id       = var.client_id
+  client_secret   = var.client_secret
   features {}
 }

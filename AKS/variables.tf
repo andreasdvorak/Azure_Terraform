@@ -1,11 +1,11 @@
 variable "client_id" {
-    description = "client id for azure"
-    type = string
+  description = "client id for azure"
+  type        = string
 }
 
 variable "client_secret" {
-    description = "client secret for azure"
-    type = string
+  description = "client secret for azure"
+  type        = string
 }
 
 variable "resource_group_name_prefix" {
@@ -15,11 +15,11 @@ variable "resource_group_name_prefix" {
 }
 
 variable "subscription_id" {
-    description = "subscription id for azure"
-    type = string
+  description = "subscription id for azure"
+  type        = string
 }
 
 variable "tenant_id" {
-    description = "tenant id for azure"
-    type = string
+  description = "tenant id for azure"
+  type        = string
 }

@@ -28,7 +28,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     vm_size    = local.vm_size
     node_count = local.node_count
   }
- 
+
   tags = {
     environment = local.tags_environment
   }

@@ -1,26 +1,26 @@
 variable "backend_resource_group" {
   description = "backend resource group"
-  type = string
+  type        = string
 }
 
 variable "backend_storage_account" {
   description = "backend storage account"
-  type = string
+  type        = string
 }
 
 variable "backend_storage_container" {
   description = "backend storage container"
-  type = string
+  type        = string
 }
 
 variable "client_id" {
-    description = "client id for azure"
-    type = string
+  description = "client id for azure"
+  type        = string
 }
 
 variable "client_secret" {
-    description = "client secret for azure"
-    type = string
+  description = "client secret for azure"
+  type        = string
 }
 
 variable "environment_name" {
@@ -45,13 +45,13 @@ variable "location" {
 }
 
 variable "subscription_id" {
-    description = "subscription id for azure"
-    type = string
+  description = "subscription id for azure"
+  type        = string
 }
 
 variable "tenant_id" {
-    description = "tenant id for azure"
-    type = string
+  description = "tenant id for azure"
+  type        = string
 }
 
 variable "tf_file_name" {

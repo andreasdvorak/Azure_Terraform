@@ -10,16 +10,16 @@ terraform {
       version = "~> 4.8.0"
     }
   }
-  
+
   # Defination that the terraform state file is in Azure
   backend "azurerm" {
   }
 }
 
 provider "azuread" {
-  tenant_id       = var.tenant_id
-  client_id       = var.client_id
-  client_secret   = var.client_secret
+  tenant_id     = var.tenant_id
+  client_id     = var.client_id
+  client_secret = var.client_secret
 }
 
 provider "azurerm" {

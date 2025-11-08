@@ -30,11 +30,11 @@ variable "log_analytics_workspace_id" {
 }
 
 variable "subscription_id" {
-    description = "subscription id for azure"
-    type = string
+  description = "subscription id for azure"
+  type        = string
 }
 
 variable "tenant_id" {
-    description = "tenant id for azure"
-    type = string
+  description = "tenant id for azure"
+  type        = string
 }

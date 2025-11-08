@@ -1,38 +1,38 @@
 variable "admin_username" {
   default     = "test"
   description = "Administrator user name"
-  type = string
+  type        = string
 }
 
 variable "application_name" {
   default     = "test"
   description = "Application name"
-  type = string
+  type        = string
 }
 
 variable "backend_resource_group" {
   description = "backend resource group"
-  type = string
+  type        = string
 }
 
 variable "backend_storage_account" {
   description = "backend storage account"
-  type = string
+  type        = string
 }
 
 variable "backend_storage_container" {
   description = "backend storage container"
-  type = string
+  type        = string
 }
 
 variable "client_id" {
-    description = "client id for azure"
-    type = string
+  description = "client id for azure"
+  type        = string
 }
 
 variable "client_secret" {
-    description = "client secret for azure"
-    type = string
+  description = "client secret for azure"
+  type        = string
 }
 
 variable "environment_name" {
@@ -59,39 +59,39 @@ variable "location" {
 variable "keyvault_application_name" {
   default     = "test"
   description = "KeyVault application name"
-  type = string
+  type        = string
 }
 
 variable "log_analytics_workspace_application_name" {
   default     = "test"
   description = "Log Analytics application name"
-  type = string
+  type        = string
 }
 
 variable "network_application_name" {
   default     = "test"
   description = "Network application name"
-  type = string
+  type        = string
 }
 
 variable "os_offer" {
-    description = "os to offer"
-    type = string
+  description = "os to offer"
+  type        = string
 }
 
 variable "os_sku" {
-    description = "os sku"
-    type = string
+  description = "os sku"
+  type        = string
 }
 
 variable "subscription_id" {
-    description = "subscription id for azure"
-    type = string
+  description = "subscription id for azure"
+  type        = string
 }
 
 variable "tenant_id" {
-    description = "tenant id for azure"
-    type = string
+  description = "tenant id for azure"
+  type        = string
 }
 
 variable "tf_file_name" {
@@ -115,5 +115,5 @@ variable "virtual_network" {
 variable "vm_application_name" {
   default     = "test"
   description = "VM application name"
-  type = string
+  type        = string
 }

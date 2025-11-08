@@ -1,7 +1,7 @@
 variable "admin_username" {
   default     = "test"
   description = "Administrator user name"
-  type = string
+  type        = string
 }
 
 variable "application_name" {
@@ -32,11 +32,11 @@ variable "location" {
 }
 
 variable "os_offer" {
-    description = "os to offer"
-    type = string
+  description = "os to offer"
+  type        = string
 }
 
 variable "os_sku" {
-    description = "os sku"
-    type = string
+  description = "os sku"
+  type        = string
 }

@@ -20,7 +20,7 @@ resource "azurerm_policy_definition" "allow_europe_regions" {
     }
   }
   POLICY_RULE
-  }
+}
 
 resource "azurerm_subscription_policy_assignment" "assign_europe_regions" {
   name                 = "assign-europe-regions"

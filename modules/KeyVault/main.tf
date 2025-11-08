@@ -1,5 +1,5 @@
 # The keyvault name needs to be uniq in Azure
-resource random_string "keyvault_suffix" {
+resource "random_string" "keyvault_suffix" {
   length  = 6
   upper   = false
   special = false
@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "main" {
 }
 
 # Get current authentication and configuration
-data "azurerm_client_config" "current"{}
+data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "main" {
   name                       = "kv-${var.application_name}-${var.environment_name}-${random_string.keyvault_suffix.result}"

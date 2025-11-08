@@ -9,7 +9,7 @@ resource "azurerm_virtual_network" "main" {
   resource_group_name = azurerm_resource_group.main.name
   address_space       = [var.virtual_network.address_space]
 
-  depends_on = [ azurerm_resource_group.main ]
+  depends_on = [azurerm_resource_group.main]
 }
 
 resource "azurerm_subnet" "zero" {
@@ -18,40 +18,40 @@ resource "azurerm_subnet" "zero" {
   virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes     = [cidrsubnet(var.virtual_network.address_space, 2, 0)]
 
-  depends_on = [ azurerm_virtual_network.main ]
+  depends_on = [azurerm_virtual_network.main]
 }
 
 resource "azurerm_subnet" "one" {
   name                 = "snet-1"
   resource_group_name  = azurerm_resource_group.main.name
   virtual_network_name = azurerm_virtual_network.main.name
-  address_prefixes     = [cidrsubnet(var.virtual_network.address_space,
-                                  var.virtual_network.subnet_newbits,
-                                  1)]
+  address_prefixes = [cidrsubnet(var.virtual_network.address_space,
+    var.virtual_network.subnet_newbits,
+  1)]
 
-  depends_on = [ azurerm_virtual_network.main ]
+  depends_on = [azurerm_virtual_network.main]
 }
 
 resource "azurerm_subnet" "two" {
   name                 = "snet-2"
   resource_group_name  = azurerm_resource_group.main.name
   virtual_network_name = azurerm_virtual_network.main.name
-  address_prefixes     = [cidrsubnet(var.virtual_network.address_space,
-                                    var.virtual_network.subnet_newbits,
-                                    2)]
+  address_prefixes = [cidrsubnet(var.virtual_network.address_space,
+    var.virtual_network.subnet_newbits,
+  2)]
 
-  depends_on = [ azurerm_virtual_network.main ]
+  depends_on = [azurerm_virtual_network.main]
 }
 
 resource "azurerm_subnet" "three" {
   name                 = "snet-3"
   resource_group_name  = azurerm_resource_group.main.name
   virtual_network_name = azurerm_virtual_network.main.name
-  address_prefixes     = [cidrsubnet(var.virtual_network.address_space,
-                                    var.virtual_network.subnet_newbits,
-                                    3)]
+  address_prefixes = [cidrsubnet(var.virtual_network.address_space,
+    var.virtual_network.subnet_newbits,
+  3)]
 
-  depends_on = [ azurerm_virtual_network.main ]
+  depends_on = [azurerm_virtual_network.main]
 }
 
 resource "azurerm_network_security_group" "ssh_remote_access" {
@@ -59,8 +59,8 @@ resource "azurerm_network_security_group" "ssh_remote_access" {
   location            = var.location
   resource_group_name = azurerm_resource_group.main.name
 
-  security_rule{
-    name="ssh"
+  security_rule {
+    name                       = "ssh"
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
@@ -71,7 +71,7 @@ resource "azurerm_network_security_group" "ssh_remote_access" {
     destination_address_prefix = "*"
   }
 
-  depends_on = [ azurerm_resource_group.main ]
+  depends_on = [azurerm_resource_group.main]
 }
 
 resource "azurerm_subnet_network_security_group_association" "zero_remote_access" {
@@ -80,7 +80,7 @@ resource "azurerm_subnet_network_security_group_association" "zero_remote_access
   depends_on = [
     azurerm_virtual_network.main,
     azurerm_network_security_group.ssh_remote_access
-   ]
+  ]
 }
 
 # Get the current user's public IP address

@@ -25,6 +25,14 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
+      - name: Terraform Format Check
+        run: |
+          echo "Checking format..."
+          terraform fmt -check -recursive || {
+            echo "❌ found bad formated file!"
+            terraform fmt -check -recursive
+          }
+            
       - name: Find all Terraform directories
         id: find-dirs
         run: |

@@ -3,11 +3,11 @@ resource "azurerm_network_security_group" "appnsg" {
   location            = var.location
   resource_group_name = azurerm_resource_group.main.name
 
-  dynamic security_rule{
+  dynamic "security_rule" {
     for_each = local.networksecuritygroup_rules
     content {
-      name="Allow-${security_rule.value.destination_port_range}"
-      priority=security_rule.value.priority
+      name                       = "Allow-${security_rule.value.destination_port_range}"
+      priority                   = security_rule.value.priority
       direction                  = "Inbound"
       access                     = "Allow"
       protocol                   = "Tcp"
@@ -18,7 +18,7 @@ resource "azurerm_network_security_group" "appnsg" {
     }
   }
 
-  depends_on = [ azurerm_resource_group.main ]
+  depends_on = [azurerm_resource_group.main]
 }
 
 resource "azurerm_subnet_network_security_group_association" "appnsglink" {
@@ -27,7 +27,7 @@ resource "azurerm_subnet_network_security_group_association" "appnsglink" {
   depends_on = [
     azurerm_virtual_network.appnetwork,
     azurerm_network_security_group.appnsg
-   ]
+  ]
 }
 
 resource "azurerm_virtual_network" "appnetwork" {
@@ -36,7 +36,7 @@ resource "azurerm_virtual_network" "appnetwork" {
   resource_group_name = azurerm_resource_group.main.name
   address_space       = [var.virtual_network.address_space]
 
-  depends_on = [ azurerm_resource_group.main ]
+  depends_on = [azurerm_resource_group.main]
 }
 
 resource "azurerm_subnet" "subnets" {
@@ -44,5 +44,5 @@ resource "azurerm_subnet" "subnets" {
   resource_group_name  = azurerm_resource_group.main.name
   virtual_network_name = var.virtual_network.name
   address_prefixes     = [var.virtual_network.address_space]
-  depends_on           = [ azurerm_virtual_network.appnetwork ]
+  depends_on           = [azurerm_virtual_network.appnetwork]
 }

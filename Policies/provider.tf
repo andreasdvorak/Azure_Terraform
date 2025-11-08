@@ -5,7 +5,7 @@ terraform {
       version = "~> 4.8.0"
     }
   }
-  
+
   # Defination that the terraform state file is in Azure
   backend "azurerm" {
   }

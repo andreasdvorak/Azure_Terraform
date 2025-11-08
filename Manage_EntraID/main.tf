@@ -14,12 +14,12 @@ locals {
 }
 
 data "azuread_service_principal" "terraform_sp" {
-  for_each = local.terraform_sp_map
+  for_each     = local.terraform_sp_map
   display_name = each.key
 }
 
 resource "azuread_group_member" "terraform_sp" {
-  for_each = local.terraform_sp_map
+  for_each         = local.terraform_sp_map
   group_object_id  = azuread_group.terraform_sp.object_id
   member_object_id = data.azuread_service_principal.terraform_sp[each.key].object_id
 }
