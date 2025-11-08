@@ -1,0 +1,43 @@
+name: Terraform Validate
+
+on:
+  push:
+    paths:
+      - '**/*.tf'
+  pull_request:
+    paths:
+      - '**/*.tf'
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.13.5
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+      - name: Find all Terraform directories
+        id: find-dirs
+        run: |
+          echo "dirs=$(find . -name '*.tf' -exec dirname {} \; | sort -u | tr '\n' ' ')" >> $GITHUB_OUTPUT
+
+      - name: Validate all modules
+        run: |
+          for dir in ${{ steps.find-dirs.outputs.dirs }}; do
+            echo "Validating $dir"
+            cd "$dir"
+            terraform init -backend=false
+            terraform validate
+            cd -
+          done
