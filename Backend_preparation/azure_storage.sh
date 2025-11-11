@@ -54,3 +54,14 @@ if [ $? -eq 0 ]; then
 else
     az storage container create --name ${BACKEND_STORAGE_CONTAINER} --account-name ${BACKEND_STORAGE_ACCOUNT}
 fi
+
+# Azure does not have a Terraform code, to deactviate anonymous access on acccount level:
+az storage account update \
+  --name ${BACKEND_STORAGE_ACCOUNT} \
+  --resource-group ${BACKEND_RESOURCE_GROUP} \
+  --allow-blob-public-access false
+
+az storage account update \
+  --name ${BACKEND_STORAGE_ACCOUNT} \
+  --resource-group ${BACKEND_RESOURCE_GROUP} \
+  --allow-shared-key-access true

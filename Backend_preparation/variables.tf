@@ -1,3 +1,18 @@
+variable "backend_resource_group" {
+  description = "backend resource group"
+  type        = string
+}
+
+variable "backend_storage_account" {
+  description = "backend storage account"
+  type        = string
+}
+
+variable "backend_storage_container" {
+  description = "backend storage container"
+  type        = string
+}
+
 variable "client_id" {
   description = "client id for azure"
   type        = string

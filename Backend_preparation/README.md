@@ -18,6 +18,8 @@ You can run this script
 
 or use Terraform with a local state file to create the storage account.
 
+But you can not set "allow-blob-public-access" via Terraform.
+
     terraform [plan|apply|destroy] -var-file="./env/dev.tfvars" -var-file=../secrets.tfvars
 
 Use the outputs to for other Terraform project to use the Azure backend for the Terraform state file.

@@ -23,13 +23,19 @@ variable "client_secret" {
   type        = string
 }
 
-variable "environment_name" {
-  description = "Environment name"
+# The name of the container of the storage account
+variable "container_name" {
+  description = "The name of the container of the storage account"
+  type        = string
+}
+
+variable "env" {
+  description = "Environment of vms (dev, test, prod)"
   type        = string
 
   validation {
-    condition     = contains(local.allowed_environments, var.environment_name)
-    error_message = "The variable 'environment_name' is not valid. Allowed are: ${join(", ", local.allowed_environments)}"
+    condition     = contains(local.allowed_environments, var.env)
+    error_message = "The variable 'env' muss be 'dev', 'test' or 'prod'."
   }
 }
 
@@ -44,9 +50,12 @@ variable "location" {
   }
 }
 
-variable "policy-reader-list" {
-  type = list(string)
+variable "resource_group_name_prefix" {
+  type        = string
+  default     = "rg"
+  description = "Prefix of the resource group name that's combined with a random ID so name is unique in your Azure subscription."
 }
+
 
 variable "subscription_id" {
   description = "subscription id for azure"
@@ -58,10 +67,3 @@ variable "tenant_id" {
   type        = string
 }
 
-variable "tf_file_name" {
-  type = string
-}
-
-variable "terraform-sp-list" {
-  type = list(string)
-}
