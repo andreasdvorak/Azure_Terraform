@@ -4,6 +4,4 @@ locals {
 
   # allowed environments
   allowed_environments = ["dev", "test", "prod"]
-
-
 }
