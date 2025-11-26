@@ -1,6 +1,11 @@
 resource "azurerm_resource_group" "main" {
   location = var.location
   name     = "rg-${var.application_name}-${var.environment_name}"
+
+  tags = {
+    environment    = var.environment_name
+    responsibility = var.responsibility
+  }
 }
 
 resource "azurerm_log_analytics_workspace" "main" {

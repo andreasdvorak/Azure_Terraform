@@ -22,8 +22,3 @@ Get kubeconfig
 The resource group rg-<resource_group_name> has been defined in the Terraform code. Here is only one resource for the Kubernetes service.
 
 The resource group MC_<resource_group_name>_<AKS-Name>_<Region> is created automatically by Azure. You can only see it, but not remove it.
-
-
-
-
-

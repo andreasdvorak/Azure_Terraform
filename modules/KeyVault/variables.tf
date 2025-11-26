@@ -29,6 +29,11 @@ variable "log_analytics_workspace_id" {
   type = string
 }
 
+variable "responsibility" {
+  description = "responsibility tag for resources"
+  type        = string
+}
+
 variable "subscription_id" {
   description = "subscription id for azure"
   type        = string

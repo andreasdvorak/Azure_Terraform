@@ -84,6 +84,11 @@ variable "os_sku" {
   type        = string
 }
 
+variable "responsibility" {
+  description = "responsibility tag for resources"
+  type        = string
+}
+
 variable "subscription_id" {
   description = "subscription id for azure"
   type        = string
@@ -115,5 +120,10 @@ variable "virtual_network" {
 variable "vm_application_name" {
   default     = "test"
   description = "VM application name"
+  type        = string
+}
+
+variable "vm_size" {
+  description = "VM size"
   type        = string
 }

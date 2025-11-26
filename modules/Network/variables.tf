@@ -25,6 +25,11 @@ variable "location" {
   }
 }
 
+variable "responsibility" {
+  description = "responsibility tag for resources"
+  type        = string
+}
+
 variable "virtual_network" {
   description = "Konfiguration für das virtuelle Netzwerk"
   type = object({

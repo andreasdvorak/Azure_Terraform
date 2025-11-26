@@ -28,7 +28,7 @@ else
 fi
 
 # set the subscription
-export ARM_SUBSCRIPTION_ID=$(grep "subscription_id" env/${env}.tfvars | cut -d "=" -f2 | tr -d '"' | tr -d ' ')
+#export ARM_SUBSCRIPTION_ID=$(grep "subscription_id" env/${env}.tfvars | cut -d "=" -f2 | tr -d '"' | tr -d ' ')
 
 # set the application and environment
 export TF_VAR_tf_file_name=$(grep "tf_file_name" env/${env}.tfvars | cut -d "=" -f2 | tr -d '"' | tr -d ' ')

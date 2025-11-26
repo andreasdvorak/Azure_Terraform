@@ -93,8 +93,7 @@ Verify permission list
 ## Add permissions to principal terraform-sp-rm
 To give the terraform service principal the permission to create role assignments, we need to configure that first.
 
-az ad sp create-for-rbac --name "terraform-sp-id" --role="Contributor" --scopes="/subscriptions/<SUBSCRIPTION_ID>"
-
+    az ad sp create-for-rbac --name "terraform-sp-id" --role="Contributor" --scopes="/subscriptions/<SUBSCRIPTION_ID>"
 
     az role assignment create \
     --assignee "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" \  # → Client ID

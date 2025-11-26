@@ -7,6 +7,11 @@ resource "random_string" "keyvault_suffix" {
 resource "azurerm_resource_group" "main" {
   name     = "rg-${var.application_name}-${var.environment_name}"
   location = var.location
+
+  tags = {
+    environment = var.environment_name
+    responsibility = var.responsibility
+  }
 }
 
 # Get current authentication and configuration

@@ -40,3 +40,13 @@ variable "os_sku" {
   description = "os sku"
   type        = string
 }
+
+variable "responsibility" {
+  description = "responsibility tag for resources"
+  type        = string
+}
+
+variable "vm_size" {
+  description = "VM size"
+  type        = string
+}

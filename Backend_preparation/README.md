@@ -40,8 +40,7 @@ responsibility = "<responsibility>"
 You can run this script
     ./azure_storage.sh [dev|test|prod]
 
-
-You use Terraform with a local state file to create the storage account. Than you have the problem of the local state file and you can not set "allow-blob-public-access" via Terraform.
+To use Terraform with a local state file to create the storage account. Than you have the problem of the local state file and you can not set "allow-blob-public-access" via Terraform.
 
     terraform [plan|apply|destroy] -var-file="./env/dev.tfvars" -var-file=../secrets.tfvars
 

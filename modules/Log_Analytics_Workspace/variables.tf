@@ -24,3 +24,8 @@ variable "location" {
     error_message = "not valid region. Allowed are: ${join(", ", local.allowed_locations)}"
   }
 }
+
+variable "responsibility" {
+  description = "responsibility tag for resources"
+  type        = string
+}

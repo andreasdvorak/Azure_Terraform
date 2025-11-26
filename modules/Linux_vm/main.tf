@@ -1,6 +1,11 @@
 resource "azurerm_resource_group" "main" {
   name     = "rg-${var.application_name}-${var.environment_name}"
   location = var.location
+
+  tags = {
+    environment    = var.environment_name
+    responsibility = var.responsibility
+  }
 }
 
 resource "azurerm_public_ip" "vm0" {
@@ -38,7 +43,7 @@ resource "azurerm_linux_virtual_machine" "vm0" {
   name                = "vm0${var.application_name}${var.environment_name}"
   resource_group_name = azurerm_resource_group.main.name
   location            = var.location
-  size                = "Standard_D2s_v3"
+  size                = var.vm_size
   admin_username      = var.admin_username
 
   network_interface_ids = [
@@ -67,4 +72,3 @@ resource "azurerm_linux_virtual_machine" "vm0" {
     azurerm_network_interface.appinterface,
   tls_private_key.azureuser_ssh]
 }
-
